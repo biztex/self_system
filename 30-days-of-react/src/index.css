@@ -5,9 +5,39 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgb(230, 227, 227);
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.userCard{
+  width: fit-content;
+}
+
+.app{
+  padding: 100px;
+  border-radius: 20px;
+  margin: auto;
+  width: 80%;
+  background: white;
+  margin-top: 100px;
+  max-width: 1080px;
+}
+.app .userAvatar{
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.app .userName{
+  text-align: center;
+}
+
+
+footer{
+  margin-top: 20px;
 }
