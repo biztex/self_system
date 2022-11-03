@@ -1,7 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
 import avatar from "./images/rose.jpg";
-import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 
 // Function to show month date year
