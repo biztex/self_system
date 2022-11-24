@@ -1,13 +1,24 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
-import Apps from "./usercard";
+import ReactDOM from "react-dom";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <Apps />
-  </React.StrictMode>
-);
+const Number = ({ numbers }) => {
+  const list = numbers.map((number) => <li>{number}</li>);
+  return list;
+};
 
-reportWebVitals();
+const App = () => {
+  const numbers = [1, 2, 3, 4, 5];
+  return (
+    <div className="container">
+      <div>
+        <h1>Numbers List</h1>
+        <ul>
+          <Number numbers={numbers} />
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
