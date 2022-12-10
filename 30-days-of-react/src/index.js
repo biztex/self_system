@@ -1,44 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import myImage from "./images/rose.jpg";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import avatar from "./images/avatar.png";
 
-// User card component
-const UserCard = ({ user: { firstName, lastName, image } }) => (
-  <div className="user-card">
-    <img src={image} alt={firstName} />
-    <h2>
-      {firstName}
-      {lastName}
-    </h2>
-  </div>
-);
-
-// A button component
-const Button = ({ text, onClick, style }) => (
-  <button style={style} onClick={onClick}>
-    {text}
-  </button>
-);
-
-// CSS styles in JavaScript Object
-const buttonStyles = {
-  backgroundColor: "#61dbfb",
-  padding: 10,
-  border: "none",
-  borderRadius: 5,
-  margin: 3,
-  cursor: "pointer",
-  fontSize: 18,
-  color: "white",
-};
-
+// Header class component
 class Header extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
 
   render() {
-    console.log(this.props.data);
     const {
       welcome,
       title,
@@ -46,9 +19,9 @@ class Header extends React.Component {
       author: { firstName, lastName },
       date,
     } = this.props.data;
-
+    const styles = this.props.styles;
     return (
-      <header>
+      <header style={styles}>
         <div className="header-wrapper">
           <h1>{welcome}</h1>
           <h2>{title}</h2>
@@ -63,67 +36,97 @@ class Header extends React.Component {
   }
 }
 
+// Technology List Component
 class TechList extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
 
   render() {
     const { techs } = this.props;
-    const techsFormatted = techs.map((tech) => <li key={tech}>{tech}</li>);
-    return techsFormatted;
+    const techsList = techs.map((tech) => <li key={tech}>{tech}</li>);
+    return techsList;
   }
 }
 
+const UserModel = ({ user: { firstName, lastName, avatar_image } }) => (
+  <div className="avatar">
+    <img src={avatar_image} alt="avatar" />
+    <h4 className="avatar_name">
+      {firstName} {lastName}
+    </h4>
+  </div>
+);
+
+// Main Class Component
 class Main extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
 
   render() {
+    const {
+      techs,
+      user,
+      greetPeople,
+      showTime,
+      changeBackground,
+      styles,
+      changeAvatar,
+    } = this.props;
     return (
-      <main>
+      <main style={styles}>
         <div className="main-wrapper">
-          <p>Prerequisite to get started react.js</p>
+          <p>Prerequisite to get started react.js:</p>
           <ul>
-            <TechList techs={this.props.techs} />
+            <TechList techs={techs} />
           </ul>
-          <UserCard user={this.props.user} />
-          <Button
-            text="Greet People"
-            onClick={this.props.greetPeople}
-            style={buttonStyles}
-          />
-          <Button
-            text="Show Time"
-            onClick={this.props.handleTime}
-            style={buttonStyles}
-          />
+          <UserModel user={user} />
+          <button onClick={greetPeople}>Greet People</button>
+          <button onClick={showTime}>Show Time</button>
+          <button onClick={changeBackground}>Change Background</button>
+          <button onClick={changeAvatar}>Change Avatar</button>
         </div>
       </main>
     );
   }
 }
 
-// Footer Component
-// Class component
+// Footer Class Component
 class Footer extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
   render() {
     return (
-      <footer>
-        <div className="footer-wrapper">
-          <p>Copyright {this.props.date.getFullYear()}</p>
-        </div>
+      <footer style={this.props.style}>
+        <div className="footer-wrapper">Copyright 2022</div>
       </footer>
     );
   }
 }
-
 class App extends React.Component {
-  showDate = (time) => {
+  // eslint-disable-next-line no-useless-constructor
+  constructor(props) {
+    super(props);
+  }
+  state = {
+    count: 0,
+    styles: {
+      color: "",
+      backgroundColor: "",
+      borderBottom: "",
+    },
+    image: avatar,
+  };
+  greetPeople = () => {
+    alert("Welcome to the 30 days of React!");
+  };
+
+  showTime = (time) => {
     const months = [
       "January",
       "February",
@@ -138,51 +141,82 @@ class App extends React.Component {
       "November",
       "December",
     ];
-
     const month = months[time.getMonth()].slice(0, 3);
     const year = time.getFullYear();
     const date = time.getDate();
-    return `${month} ${date} ${year}`;
+
+    return `${month} ${date}, ${year}`;
   };
 
   handleTime = () => {
-    alert(this.showDate(new Date()));
+    alert(this.showTime(new Date()));
   };
 
-  greetPeople = () => {
-    alert("Welcome to Class Component Challenge");
+  changeBackground = () => {
+    this.setState({ count: this.state.count + 1 });
+    let count = this.state.count;
+
+    if (count % 2 === 0) {
+      this.setState({
+        styles: {
+          backgroundColor: "#0c1f24",
+          color: "white",
+          borderBottom: "1px solid #fff",
+        },
+      });
+    } else {
+      this.setState({ styles: { color: "#000" } });
+    }
   };
 
+  changeAvatar = () => {
+    let woman01URL = "https://kyampus.com/images/1666582953.jpeg";
+    // let woman02URL = "https://kyampus.com/images/1666941523.jpeg";
+    let avatar_image = this.state.image === avatar ? woman01URL : avatar;
+    console.log(avatar_image);
+    this.setState({ image: avatar_image });
+    return avatar_image;
+  };
   render() {
     const data = {
       welcome: "Welcome to 30 Days Of React",
       title: "Getting Started React",
       subtitle: "JavaScript Library",
       author: {
-        firstName: "Asabeneh",
-        lastName: "Yetayeh",
+        firstName: "Endo",
+        lastName: "Hayase",
       },
-      date: "Dec 7, 2022",
+      date: "Dec 10, 2022",
     };
 
     const techs = ["HTML", "CSS", "JavaScript"];
+    let avatarImage = this.state.image;
+    const user = { ...data.author, avatar_image: avatarImage };
 
-    const user = { ...data.author, image: myImage };
-
+    const styles = this.state.styles;
     return (
       <div className="App">
-        <Header data={data} />
+        <Header data={data} styles={styles}></Header>
         <Main
-          user={user}
           techs={techs}
-          handleTime={this.handleTime}
+          user={user}
           greetPeople={this.greetPeople}
+          showTime={this.handleTime}
+          changeBackground={this.changeBackground}
+          changeAvatar={this.changeAvatar}
+          styles={styles}
         />
-        <Footer date={new Date()} />
+        <Footer style={styles} />
       </div>
     );
   }
 }
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+reportWebVitals();
