@@ -1,4 +1,4 @@
-# Skill UP Project
+# SKILL UP PROJECT
 ## Environment
 * node v18.12.0
 
