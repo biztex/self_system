@@ -1,7 +1,6 @@
-# React Tutorial for 30 days
-
+# Skill UP Project
 ## Environment
-* node v14.17.0
+* node v18.12.0
 
 Making each branches for every test.
 
